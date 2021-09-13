@@ -1,6 +1,6 @@
-from PIL.ImageOps import grayscale
 import pyautogui
 from PIL import Image
+import time
 
 def main():
     count = 0
@@ -25,10 +25,12 @@ def main():
                 box_right_val = right_bound.left + right_bound.width / 2
             # box_middle_val = (box_left_val + box_right_val) / 2
             ptr_middle_val = ptr_region.left + ptr_region.width / 2
-            if ptr_middle_val < box_right_val:
+            if box_left_val <= ptr_middle_val < box_right_val:
                 pyautogui.click()
             elif ptr_middle_val < box_left_val:
-                pyautogui.click(duration=1)
+                pyautogui.mouseDown()
+                time.sleep(1)
+                pyautogui.mouseUp()
         else:
             print(str(count) + ': no pointer')
         
